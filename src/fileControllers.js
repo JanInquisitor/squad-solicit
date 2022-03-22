@@ -3,8 +3,9 @@ const fs = require('fs');
 
 const baseDir = path.join(__dirname, '../')
 
-// TODO: Create a function to write README file
-writeToFile = function (dir, fileName, data) {
+let controllers = {}
+
+controllers.writeToFile = function (dir, fileName, data) {
     // If the README file doesn't this makes a new one.
     if (fs.existsSync(baseDir + dir + "/" + fileName) === false) {
         fs.open(
@@ -77,4 +78,9 @@ writeToFile = function (dir, fileName, data) {
     }
 }
 
-module.exports = writeToFile
+controllers.readJSON = function (dir, file) {
+    return JSON.parse(fs.readFileSync(baseDir + dir + "/" + file + ".json", "utf8"))
+
+};
+
+module.exports = controllers;
