@@ -1,16 +1,12 @@
-const inquirerFunction = require('./src/inquirerFunction')
+const interfaceController = require('./src/interfaceController')
 const questions = require('./src/utils/questionsFunction')
 
-
 function main() {
-    const questionsArray = questions();
-    inquirerFunction(questionsArray);
+    interfaceController();
 
 }
 
 // This starts the program.
 main()
-
-
 
 
