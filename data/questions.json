@@ -1,0 +1,5 @@
+{
+  "type":"list",
+  "name":"team-names",
+  "message": "Please enter the names of your employees."
+}

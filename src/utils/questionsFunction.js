@@ -43,12 +43,34 @@ questions.engineerOptions = function () {
     }]
 }
 
+questions.managerOptions = function () {
+    return [
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the name of the manager?'
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the id of the manager?'
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the email of the manager?'
+        },
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: 'What is his office number?'
+        },
+    ]
+}
+
 questions.internOptions = function () {
 
 }
 
-questions.managerOptions = function () {
-
-}
 
 module.exports = questions;

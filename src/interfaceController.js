@@ -1,18 +1,43 @@
 const inquirer = require('inquirer')
 
-const fileControllers = require('./fileControllers')
 const Employee = require('../lib/Employee');
 const Manager = require('../lib/Manager');
 const Engineer = require('../lib/Engineer');
+const markupFunction = require('./markupFuntions')
+const fileControllers = require('./fileControllers')
+
 const questions = require("./utils/questionsFunction");
 
-let team = [];
+// This array holds the members in memory.
+let teamArray = [];
+
+function addMember(member) {
+
+    teamArray.push(member);
+    console.log(teamArray);
+}
 
 // @TODO: Place all the functions that create objects using class in their own file.
 //  (I'm not sure if should have to do this)
 
 let createManager = function (managerInfo) {
+    inquirer
+        .prompt(questions.managerOptions())
+        .then((data) => {
+            let newManager = new Manager(data.name, data.id, data.email, data.officeNumber)
+            console.log('Engineer created!')
+            addMember(newManager);
+            startPrompt();
+        })
+        .catch((error) => {
+            if (error.isTtyError) {
+                // Prompt couldn't be rendered in the current environment
+                console.log(error.isTtyError)
+            } else {
+                // Something else went wrong
+            }
 
+        })
 }
 
 let createEngineer = function (engineerInfo) {
@@ -20,14 +45,9 @@ let createEngineer = function (engineerInfo) {
         .prompt(questions.engineerOptions())
         .then((data) => {
 
-            let newEngineer = new Engineer(
-                engineerInfo.name,
-                engineerInfo.id,
-                engineerInfo.email,
-                data.github
-            )
-
-            console.log(newEngineer)
+            let newEngineer = new Engineer(engineerInfo.name, engineerInfo.id, engineerInfo.email, data.github)
+            console.log('Engineer created!')
+            addMember(newEngineer)
             startPrompt()
         }).catch((error) => {
         if (error.isTtyError) {
@@ -59,6 +79,8 @@ let createEmployee = function () {
             if (response.role === 'Employee') {
                 let newEmployee = new Employee(response.name, response.id, response.email)
                 console.log('Employee created!')
+                addMember(newEmployee);
+                startPrompt();
             }
 
         })
@@ -71,6 +93,11 @@ let createEmployee = function () {
             }
         });
 };
+
+function generatePage(team) {
+    let markup = markupFunction(team)
+    fileControllers.writeToFile('dist', 'index.html', markup)
+}
 
 let startPrompt = function () {
     inquirer
@@ -85,7 +112,7 @@ let startPrompt = function () {
             }
 
             if (answer.action === 'Generate page') {
-
+                generatePage(teamArray);
             }
 
             if (answer.action === 'Exit') {
