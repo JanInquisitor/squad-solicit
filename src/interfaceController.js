@@ -3,6 +3,7 @@ const inquirer = require('inquirer')
 const Employee = require('../lib/Employee');
 const Manager = require('../lib/Manager');
 const Engineer = require('../lib/Engineer');
+const Intern = require('../lib/Intern')
 const markupFunction = require('./markupFuntions')
 const fileControllers = require('./fileControllers')
 
@@ -14,7 +15,6 @@ let teamArray = [];
 function addMember(member) {
 
     teamArray.push(member);
-    console.log(teamArray);
 }
 
 // @TODO: Place all the functions that create objects using class in their own file.
@@ -25,7 +25,7 @@ let createManager = function (managerInfo) {
         .prompt(questions.managerOptions())
         .then((data) => {
             let newManager = new Manager(data.name, data.id, data.email, data.officeNumber)
-            console.log('Engineer created!')
+            console.log('Manager created!')
             addMember(newManager);
             startPrompt();
         })
@@ -61,8 +61,28 @@ let createEngineer = function (engineerInfo) {
 
 }
 
-function createIntern(internInfo) {
 
+function createIntern(internInfo) {
+    inquirer
+        .prompt(questions.internOptions(questions.internOptions()))
+        .then((data) => {
+            let intern = new Intern(
+                internInfo.name,
+                internInfo.id,
+                internInfo.email,
+                data.school,
+                internInfo.role,
+            )
+            addMember(intern);
+            startPrompt();
+        }).catch((error) => {
+        if (error.isTtyError) {
+            // Prompt couldn't be rendered in the current environment
+            console.log(error.isTtyError)
+        } else {
+            // Something else went wrong
+        }
+    });
 }
 
 let createEmployee = function () {
@@ -100,6 +120,7 @@ function generatePage(team) {
 }
 
 let startPrompt = function () {
+    console.log(`Team members created: ${teamArray.length}`)
     inquirer
         .prompt(questions.menuActions())
         .then((answer) => {
@@ -133,7 +154,6 @@ let startPrompt = function () {
 
 let interfaceController = function () {
     startPrompt();
-
 }
 
 

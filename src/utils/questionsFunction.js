@@ -69,7 +69,11 @@ questions.managerOptions = function () {
 }
 
 questions.internOptions = function () {
-
+    return {
+        type:'input',
+        name:'school',
+        message: 'At what school does the intern attend to?'
+    }
 }
 
 
