@@ -4,7 +4,7 @@ function cardMarkup(employeeData) {
     }
 
     function getGithub() {
-        return `Github username: ${employeeData.getGithub()}`
+        return `<a href="https://github.com/${employeeData.getGithub()}">Github username: ${employeeData.getGithub()}</a>`
     }
 
     function getSchool() {
@@ -17,7 +17,7 @@ function cardMarkup(employeeData) {
         <h2>${employeeData.getName()}</h2>
         <h4><b>${employeeData.id}</b></h4>
         <p>Role: ${employeeData.getRole()}</p>
-        <p>Email: ${employeeData.email}</p>
+        <a href="mail:to${employeeData.email}">Email: ${employeeData.email}</a>
         ${employeeData['role'] === 'Manager' ? getOfficeNumber() : ''}
         ${employeeData['role'] === 'Engineer' ? getGithub() : ''}
         ${employeeData['role'] === 'Intern' ? getSchool() : ''}         

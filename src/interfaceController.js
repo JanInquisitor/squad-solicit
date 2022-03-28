@@ -13,12 +13,10 @@ const questions = require("./utils/questionsFunction");
 let teamArray = [];
 
 function addMember(member) {
-
     teamArray.push(member);
 }
 
 // @TODO: Place all the functions that create objects using class in their own file.
-//  (I'm not sure if should have to do this)
 
 let createManager = function (managerInfo) {
     inquirer
@@ -149,7 +147,6 @@ let startPrompt = function () {
                 // Something else went wrong
             }
         });
-
 }
 
 let interfaceController = function () {
